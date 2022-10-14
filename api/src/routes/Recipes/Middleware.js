@@ -43,7 +43,7 @@ const createRecipe = async (req, res, next) => {
       healtScore,
       analyzedInstructions,
       image,
-      diets,
+      typeDiets,
       createdInDb,
     } = req.body;
 
@@ -62,10 +62,10 @@ const createRecipe = async (req, res, next) => {
     });
     const dietDB = await Type.findAll({
       where: {
-        name: diets,
+        name: typeDiets,
       },
     });
-    await newRecipe.addType(dietDB);
+    newRecipe.addType(dietDB);
     res.json("Receta creada con exito");
   } catch (error) {
     next(error);
