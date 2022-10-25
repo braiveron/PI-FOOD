@@ -6,11 +6,14 @@ import {
   getRecipes,
   filterByType,
   filterByScore,
-  filterCreated,
+  orderByName,
 } from "../Actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
+import SearchBar from "./SearchBar";
+import loader from "../Utilities/loader.gif";
+import "./Estilos/Home.css";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -25,6 +28,7 @@ export default function Home() {
     indexOfLastRecipe
   );
   const [orderScore, setOrderScore] = useState("");
+  const [orderName, setOrderName] = useState("");
 
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -52,73 +56,89 @@ export default function Home() {
     e.preventDefault();
     dispatch(filterByScore(e.target.value));
     setCurrentPage(1);
-    setOrderScore("Order" + e.target.value);
+    setOrderScore("Ordenado" + e.target.value);
   }
 
-  function handleFilterCreated(e) {
+  function handleSort(e) {
     e.preventDefault();
-    dispatch(filterCreated(e.target.value));
+    dispatch(orderByName(e.target.value));
+    setCurrentPage(1);
+    setOrderName("Ordenado" + e.target.value);
   }
 
   return (
-    <div>
-      <Link to="/recipes">CREAR RECETA</Link>
-      <h1>MIS RECETAS</h1>
-      <button
-        onClick={(e) => {
-          handleReload(e);
-        }}
-      >
-        VOLVER A CARGAR RECETAS
-      </button>
+    <div className="home-container">
+      <div className="home">
+        <nav className="nav-container">
+          <Link className="create-title" to="/recipes">
+            <p className="button-create"> CREAR RECETA </p>
+          </Link>
+          <p className="page-title">MIS RECETAS</p>
+          <SearchBar setCurrentPage={setCurrentPage} />
+        </nav>
 
-      <div>
-        <select>
-          <option value="all">ORDEN ALFABETICO</option>
-          <option value="asc">A - Z</option>
-          <option value="des">Z - A</option>
-        </select>
+        <div>
+          <select onChange={(e) => handleSort(e)}>
+            <option value="all">ORDEN ALFABETICO</option>
+            <option value="asc">A - Z</option>
+            <option value="des">Z - A</option>
+          </select>
 
-        <select onChange={(e) => handleFilterType(e)}>
-          <option value="all">Tipos de Dieta</option>
-          {allDiets?.map((d) => {
-            return (
-              <option value={d.name} key={d.name}>
-                {d.name}
-              </option>
-            );
-          })}
-        </select>
+          <select onChange={(e) => handleFilterType(e)}>
+            <option value="all">Tipos de Dieta</option>
+            {allDiets?.map((d) => {
+              return (
+                <option value={d.name} key={d.name}>
+                  {d.name}
+                </option>
+              );
+            })}
+          </select>
 
-        <select onChange={(e) => handleFilterScore(e)}>
-          <option value="all">Nivel Saludable</option>
-          <option value="asc">BAJO - ALTO</option>
-          <option value="desc">ALTO - BAJO</option>
-        </select>
-
-        <select onChange={(e) => handleFilterCreated(e)}>
-          <option value="All">Existente o Creada</option>
-          <option value="db">Creada</option>
-          <option value="api">Existente</option>
-        </select>
-
+          <select onChange={(e) => handleFilterScore(e)}>
+            <option value="all">Nivel Saludable</option>
+            <option value="asc">BAJO - ALTO</option>
+            <option value="desc">ALTO - BAJO</option>
+          </select>
+          <button
+            onClick={(e) => {
+              handleReload(e);
+            }}
+          >
+            VOLVER A CARGAR RECETAS
+          </button>
+        </div>
         <Paginado
           receipesPerPage={recipesPerPage}
           allRecipes={allRecipes.length}
           paginado={paginado}
         />
-
-        {currentRecipes?.map((r) => {
-          return (
-            <Card
-              title={r.title}
-              image={r.image}
-              typeDiets={r.typeDiets}
-              healthScore={r.healthScore}
-              key={r.id}
-            />
-          );
-        })}
+        <div className="cards-container">
+          {currentRecipes.length > 0 ? (
+            currentRecipes?.map((r) => {
+              return (
+                <Card
+                  id={r.id}
+                  title={r.title}
+                  image={r.image}
+                  typeDiets={r.typeDiets}
+                  healthScore={r.healthScore}
+                  key={r.id}
+                />
+              );
+            })
+          ) : (
+            <div className="loading">
+              <img
+                src={loader}
+                alt="img not found"
+                width="300px"
+                height="300px"
+              />
+              <h1 className="load-title">LOADING...</h1>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

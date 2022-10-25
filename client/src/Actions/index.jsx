@@ -1,12 +1,16 @@
 import axios from "axios";
 import {
   URL_RECIPES,
+  URL_RECIPES_QUERY,
   URL_TYPES,
   GET_RECIPES,
   GET_TYPES,
   FILTER_TYPES,
   FILTER_SOCRE,
-  FILTER_CREATED,
+  ORDER_BY_NAME,
+  GET_NAME_RECIPES,
+  POST_RECIPE,
+  GET_DETAILS,
 } from "./const";
 
 export function getRecipes() {
@@ -52,9 +56,51 @@ export function filterByScore(payload) {
   };
 }
 
-export function filterCreated(payload) {
+export function orderByName(payload) {
   return {
-    type: FILTER_CREATED,
+    type: ORDER_BY_NAME,
     payload,
+  };
+}
+
+export function getNameRecipes(title) {
+  return async function (dispatch) {
+    try {
+      const recipes = await axios.get(URL_RECIPES_QUERY + title);
+      return dispatch({
+        type: GET_NAME_RECIPES,
+        payload: recipes.data,
+      });
+    } catch (error) {
+      alert("No existe receta con ese nombre");
+    }
+  };
+}
+
+export function postRecipe(payload) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(URL_RECIPES, payload);
+      return {
+        type: POST_RECIPE,
+        response,
+      };
+    } catch (error) {
+      return error;
+    }
+  };
+}
+
+export function getDetails(id) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(URL_RECIPES + id);
+      return dispatch({
+        type: GET_DETAILS,
+        payload: response.data,
+      });
+    } catch (error) {
+      return error;
+    }
   };
 }

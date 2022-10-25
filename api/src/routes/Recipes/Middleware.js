@@ -11,7 +11,7 @@ const getRecipe = async (req, res, next) => {
       );
       recipeTitle.length
         ? res.status(200).json(recipeTitle)
-        : res.status(400).send("This recipe doesn't exist");
+        : res.status(400).send("No existe una receta con ese nombre");
     } else {
       res.status(200).json(recipesTotal);
     }

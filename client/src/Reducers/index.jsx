@@ -3,7 +3,10 @@ import {
   GET_TYPES,
   FILTER_TYPES,
   FILTER_SOCRE,
-  FILTER_CREATED,
+  ORDER_BY_NAME,
+  GET_NAME_RECIPES,
+  POST_RECIPE,
+  GET_DETAILS,
 } from "../Actions/const.jsx";
 
 const initialState = {
@@ -48,15 +51,43 @@ function rootReducer(state = initialState, action) {
         ...state,
         recipes: scoreFilter,
       };
-    case FILTER_CREATED:
-      const allRecipes2 = state.allRecipes;
-      const createdFilter =
-        action.payload === "db"
-          ? allRecipes2.filter((r) => r.createdInDb)
-          : allRecipes2.filter((r) => !r.createdInDb);
+
+    case ORDER_BY_NAME:
+      const sortedArr =
+        action.payload === "asc"
+          ? state.recipes.sort(function (a, b) {
+              if (a.title > b.title) {
+                return 1;
+              } else if (a.title < b.title) {
+                return -1;
+              }
+              return 0;
+            })
+          : state.recipes.sort(function (a, b) {
+              if (a.title < b.title) {
+                return 1;
+              } else if (a.title > b.title) {
+                return -1;
+              }
+              return 0;
+            });
       return {
         ...state,
-        recipes: action.payload === "All" ? state.allRecipes : createdFilter,
+        recipes: sortedArr,
+      };
+    case GET_NAME_RECIPES:
+      return {
+        ...state,
+        recipes: action.payload,
+      };
+    case POST_RECIPE:
+      return {
+        ...state,
+      };
+    case GET_DETAILS:
+      return {
+        ...state,
+        details: action.payload,
       };
     default:
       return state;

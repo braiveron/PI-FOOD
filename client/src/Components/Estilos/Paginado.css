@@ -1,0 +1,36 @@
+.paginado {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    margin: 30px;
+}
+
+.paginado-container{
+    display: flex;
+    justify-content: center;
+}
+
+.number {
+    position: relative;
+    cursor: pointer;
+    list-style: none;
+    height: 45px;
+    font-size: 1.5rem;
+}
+
+.number:after {
+    content: "";
+    position: absolute;
+    background-color: rgb(185, 93, 31);
+    height: 3px;
+    width: 0;
+    left: 0;
+    bottom: -2px;
+    transition: 0.3s;
+}
+
+.number:hover:after {
+    width: 100%;
+}
