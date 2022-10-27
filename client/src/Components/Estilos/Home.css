@@ -15,11 +15,12 @@ html body {
     height: 120px;
     margin: 25px 10px;
     padding: 0 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     border: 1.5px solid #a0a0a0;
     border-radius: 15px;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3,1fr);
+    align-items: center;
 }
 
 .page-title {
@@ -59,7 +60,7 @@ html body {
 }
 
 .button-create:hover:after {
-    width: 100%;
+    width: 75%;
 }
 
 
@@ -68,16 +69,56 @@ html body {
     grid-gap: 20px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    margin: 0 30px
 }
 
 .loading {
-    margin-left: 120%;
+    position: absolute;
+    right: 40%;
+    bottom: 10%;
 }
 
 .load-title {
     font-family: 'Slasher';
-    font-size: 65px;
+    font-size: 50px;
     color: #a0a0a0;
     letter-spacing: 6px;
-    margin-left: 50px;
 }
+
+.filters-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(4,1fr);
+    margin: 10px 45px;
+    height: 35px;
+}
+
+.filter-box {
+    background: none;
+    border: 1px solid rgb(185, 93, 31);
+    border-radius:  5px;
+    color: #a0a0a0;
+    outline: none;
+    font-family: 'Slasher';
+    font-size: 25px;
+    letter-spacing: 6px;
+    padding: 5px;
+}
+
+.filter-box:hover {
+    color: #fff;
+    background: none;
+}
+
+.filter-box:hover option {
+    color: #212121;
+    background: none;
+}
+
+
+
+
+
+
+
+

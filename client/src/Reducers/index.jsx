@@ -32,7 +32,7 @@ function rootReducer(state = initialState, action) {
     case FILTER_TYPES:
       const allDiets = state.allRecipes;
       const typeDiets =
-        action.payload === "All"
+        action.payload === "all"
           ? allDiets
           : allDiets.filter((d) =>
               d.typeDiets.find((e) => e === action.payload)
@@ -42,11 +42,27 @@ function rootReducer(state = initialState, action) {
         recipes: typeDiets,
       };
     case FILTER_SOCRE:
-      const allRecipes = state.allRecipes;
+      const allRecipes = state.recipes;
       const scoreFilter =
         action.payload === "asc"
-          ? allRecipes.sort((a, b) => a.healthScore - b.healthScore)
-          : allRecipes.sort((a, b) => b.healthScore - a.healthScore);
+          ? allRecipes.sort(function (a, b) {
+              if (a.healthScore > b.healthScore) {
+                return 1;
+              }
+              if (a.healthScore < b.healthScore) {
+                return -1;
+              }
+              return 0;
+            })
+          : allRecipes.sort(function (a, b) {
+              if (a.healthScore > b.healthScore) {
+                return -1;
+              }
+              if (a.healthScore < b.healthScore) {
+                return 1;
+              }
+              return 0;
+            });
       return {
         ...state,
         recipes: scoreFilter,

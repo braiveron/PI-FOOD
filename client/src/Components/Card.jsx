@@ -13,9 +13,9 @@ export default function RecipeCard({
     <div className="card">
       <h3 className="title-recipe">{title}</h3>
 
-      <div className="img-container">
-        <figure>
-          <Link to={"/recipes/" + id}>
+      <Link to={"/recipes/" + id}>
+        <div className="img-container">
+          <figure>
             <img
               className="img-card"
               src={image}
@@ -23,13 +23,13 @@ export default function RecipeCard({
               width="250px"
               height="200px"
             />
-          </Link>
-          <div className="capa">
-            <h5 className="img-text">Clic para</h5> <br />
-            <h5 className="img-text2">mas INFO</h5>
-          </div>
-        </figure>
-      </div>
+            <div className="capa">
+              <h5 className="img-text">Click para</h5> <br />
+              <h5 className="img-text2">mas INFO</h5>
+            </div>
+          </figure>
+        </div>
+      </Link>
 
       <div className="diets-card">
         {" "}

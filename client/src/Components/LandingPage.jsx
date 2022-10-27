@@ -10,9 +10,7 @@ export default function LandingPage() {
           <h1>BIENVENIDOS</h1>
           <h1>A MI PAGINA DE RECETAS</h1>
         </div>
-        <Link className="button" to="/home">
-          {" "}
-        </Link>
+        <Link className="button-landing" to="/home"></Link>
 
         <div className="footer">
           <h4 className="firma">Dev by Braian Veron</h4>

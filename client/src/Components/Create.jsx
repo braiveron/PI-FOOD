@@ -4,6 +4,8 @@ import { postRecipe, getTypes } from "../Actions";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
+import "./Estilos/Create.css";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 export default function RecipeCreate() {
   const dispatch = useDispatch();
@@ -33,7 +35,8 @@ export default function RecipeCreate() {
     ) {
       errors.healthScore = "Debes ingresar un numero entre 0 y 100";
     } else if (
-      !input.image.includes("https://") ||
+      !input.image &&
+      !input.image.includes("https://") &&
       !input.image.includes("http://")
     ) {
       errors.image = "Debes ingresar una URL válida";
@@ -98,61 +101,85 @@ export default function RecipeCreate() {
 
   return (
     <div>
-      <Link to="/home">
-        <button>VOLVER</button>
-      </Link>
-      <h1>CREAR RECETA</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <label>TITLE:</label>
+      <div className="nav-create">
+        <Link className="create-title2" to="/home">
+          <p className="button-create2">HOME</p>
+        </Link>
+        <h1 className="page-title">CREAR RECETA</h1>
+      </div>
+
+      <form className="form-order" onSubmit={(e) => handleSubmit(e)}>
+        <div className="form">
           <input
             type="text"
             value={input.title}
             name="title"
-            placeholder="Ingrese titulo de su receta"
+            required
             onChange={(e) => handleChange(e)}
           />
-          {errors.title && <p className="error">{errors.title}</p>}
+          <label className="lbl-nombre">
+            <span className="text-nomb">TITULO</span>{" "}
+          </label>
+        </div>
+        {errors.title && <p className="error">{errors.title}</p>}
 
-          <label>SUMMARY:</label>
+        <div className="form">
           <input
             type="text"
             value={input.summary}
             name="summary"
-            placeholder="Ingrese un resumen"
+            required
             onChange={(e) => handleChange(e)}
           />
+          <label className="lbl-nombre">
+            <span className="text-nomb">RESUMEN</span>{" "}
+          </label>
           {errors.summary && <p className="error">{errors.summary}</p>}
+        </div>
 
-          <label>HEALTHSCORE:</label>
+        <div className="form">
           <input
             type="text"
             value={input.healthScore}
             name="healthScore"
-            placeholder="Indica un numero"
+            required
             onChange={(e) => handleChange(e)}
           />
+          <label className="lbl-nombre">
+            <span className="text-nomb">NIVEL SALUDABLE</span>{" "}
+          </label>{" "}
           {errors.healthScore && <p className="error">{errors.healthScore}</p>}
+        </div>
 
-          <label>INSTRUCCIONES:</label>
+        <div className="form">
           <input
             type="text"
             value={input.analyzedInstructions}
             name="analyzedInstructions"
+            required
             onChange={(e) => handleChange(e)}
           />
+          <label className="lbl-nombre">
+            <span className="text-nomb">INSTRUCCIONES</span>{" "}
+          </label>
+        </div>
 
-          <label>IMAGE:</label>
+        <div className="form">
           <input
             type="text"
             value={input.image}
             name="image"
-            placeholder="Ingrese URL de imagen"
+            required
             onChange={(e) => handleChange(e)}
           />
+          <label className="lbl-nombre">
+            <span className="text-nomb">IMAGEN</span>{" "}
+          </label>
           {errors.image && <p className="error">{errors.image}</p>}
+        </div>
 
-          <select onChange={(e) => handleSelect(e)}>
+        <div className="form">
+          <select className="diets-form" onChange={(e) => handleSelect(e)}>
             <option value="">Tipo de Dieta</option>
             {diets.map((d) => {
               return (
@@ -162,20 +189,32 @@ export default function RecipeCreate() {
               );
             })}
           </select>
-          <ul>
+
+          {errors.typeDiets && <p className="error">{errors.typeDiets}</p>}
+        </div>
+        <div className="typesContainer">
+          <ul className="list">
             <li>
               {input.typeDiets.map((dt) => (
                 <div key={dt}>
                   <h5 key={dt}>
                     {diets?.find((d) => d.name === dt)?.name}
-                    <button onClick={() => handleDelete(dt)}>X</button>
+                    <button className="delete" onClick={() => handleDelete(dt)}>
+                      <AiOutlineCloseCircle />{" "}
+                    </button>
                   </h5>
                 </div>
               ))}
             </li>
           </ul>
-          {errors.typeDiets && <p className="error">{errors.typeDiets}</p>}
-          <button type="submit" onClick={(e) => handleSubmit(e)}>
+        </div>
+
+        <div className="btn-container">
+          <button
+            className="btn-bottom"
+            type="submit"
+            onClick={(e) => handleSubmit(e)}
+          >
             CREAR RECETA
           </button>
         </div>

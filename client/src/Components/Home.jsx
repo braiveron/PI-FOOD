@@ -50,6 +50,8 @@ export default function Home() {
   function handleFilterType(e) {
     e.preventDefault();
     dispatch(filterByType(e.target.value));
+    setCurrentPage(1);
+    setOrderScore("Ordenado" + e.target.value);
   }
 
   function handleFilterScore(e) {
@@ -77,14 +79,20 @@ export default function Home() {
           <SearchBar setCurrentPage={setCurrentPage} />
         </nav>
 
-        <div>
-          <select onChange={(e) => handleSort(e)}>
-            <option value="all">ORDEN ALFABETICO</option>
-            <option value="asc">A - Z</option>
-            <option value="des">Z - A</option>
+        <div className="filters-container">
+          <select className="filter-box" onChange={(e) => handleSort(e)}>
+            <option className="option" value="all">
+              ORDEN ALFABETICO
+            </option>
+            <option className="option" value="asc">
+              A - Z
+            </option>
+            <option className="option" value="des">
+              Z - A
+            </option>
           </select>
 
-          <select onChange={(e) => handleFilterType(e)}>
+          <select className="filter-box" onChange={(e) => handleFilterType(e)}>
             <option value="all">Tipos de Dieta</option>
             {allDiets?.map((d) => {
               return (
@@ -95,23 +103,25 @@ export default function Home() {
             })}
           </select>
 
-          <select onChange={(e) => handleFilterScore(e)}>
+          <select className="filter-box" onChange={(e) => handleFilterScore(e)}>
             <option value="all">Nivel Saludable</option>
             <option value="asc">BAJO - ALTO</option>
             <option value="desc">ALTO - BAJO</option>
           </select>
           <button
+            className="filter-box"
             onClick={(e) => {
               handleReload(e);
             }}
           >
-            VOLVER A CARGAR RECETAS
+            CARGAR RECETAS
           </button>
         </div>
         <Paginado
           receipesPerPage={recipesPerPage}
           allRecipes={allRecipes.length}
           paginado={paginado}
+          currentPage={currentPage}
         />
         <div className="cards-container">
           {currentRecipes.length > 0 ? (
@@ -132,8 +142,8 @@ export default function Home() {
               <img
                 src={loader}
                 alt="img not found"
-                width="300px"
-                height="300px"
+                width="250px"
+                height="250px"
               />
               <h1 className="load-title">LOADING...</h1>
             </div>

@@ -1,0 +1,101 @@
+
+.cards-container2 {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 400px auto;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+        "left right"
+        "step  step ";
+    margin: 0 30px
+}
+
+.detail {
+    box-shadow: 10px 10px #212121, -10px -10px #212121;
+}
+
+.title-recipe2 {
+font-family: 'Tiza';
+    color: #212121;
+    font-size: 16px;
+    letter-spacing: 2px;
+    height: 80px;
+}
+
+.health-card2 {
+    font-family: 'Slasher';
+    font-size: 25px;
+    letter-spacing: 6px;
+    color: #212121;
+    padding: 45px 0 5px;
+}
+
+.diets-card2 {
+    font-family: 'Slasher';
+    font-size: 25px;
+    letter-spacing: 6px;
+    color: #212121;
+    width: 80%;
+    height: 105px;
+    padding: 5px 0 140px;
+}
+
+.types {
+    margin-top: 20px;
+}
+
+.right {
+    grid-area: right;
+    margin: 10px -20px 35px;
+    background-color: antiquewhite;
+    border-radius: 8px;
+}
+
+.resume {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid rgb(185, 93, 31);
+    padding: 25px;
+    margin: 35px;
+}
+
+.resume-title {
+    font-family: 'Slasher';
+    font-size: 35px;
+    letter-spacing: 6px;
+    color: #212121;
+    margin-bottom: 20px;
+}
+
+.parrafo {
+    list-style: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+}
+
+.left {
+    grid-area: left;
+    background-color: antiquewhite;
+    margin: 10px 5px 35px -20px;
+    border-radius: 8px;
+}
+
+.step-title {
+    font-family: 'Slasher';
+    font-size: 35px;
+    letter-spacing: 6px;
+    color: #a0a0a0;
+    margin-bottom: 45px;
+    text-decoration: underline;
+    text-decoration-color:  rgb(185, 93, 31);
+}
+
+.step {
+    grid-area: step;
+    color: antiquewhite;
+    margin-bottom: 100px;
+    height: 100vh;
+}
+

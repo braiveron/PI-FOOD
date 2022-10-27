@@ -1,0 +1,95 @@
+@font-face {
+    font-family: 'Tiza';
+    src: url('../../Utilities/tiza.ttf');
+}
+
+@font-face {
+    font-family: 'Slasher';
+    src: url(../../Utilities/slasherfilm.ttf);
+}
+
+.img {
+    margin: 60px;
+}
+
+.notFound-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-found {
+    font-family: 'Tiza';
+    font-size: 30px;
+    letter-spacing: 2px;
+    color: antiquewhite;
+}
+
+.link-cont {
+    text-decoration: none;
+}
+
+/* .link-text {
+    color: #a0a0a0;
+    text-decoration: none;
+    font-family: 'Slasher';
+    font-size: 30px;
+    letter-spacing: 6px;
+} */
+
+.link-text {
+    width: 300px;
+    padding: 15px;
+    background-color: transparent;
+    border: 1.5px solid transparent;
+    color: rgb(185, 93, 31);
+    transition: all 0.3s;
+    position: relative;
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 1em;
+    cursor: pointer;
+    z-index: 200;
+}
+
+.link-text::after {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-top: 1.5px solid rgb(185, 93, 31);
+    border-left: 1.5px solid rgb(185, 93, 31);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    transition: all 0.2s;
+    z-index: -1;
+}
+
+.link-text::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-bottom: 1.5px solid rgb(185, 93, 31);
+    border-right: 1.5px solid rgb(185, 93, 31);
+    position: absolute;
+    left: -1;
+    right: 0;
+    bottom: 0;
+    top: -1;
+    transition: all 0.2s;
+    z-index: -1;
+}
+
+.link-text:hover::after {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(185, 93, 31);
+}
+
+.link-text:hover {
+    color: #a0a0a0;
+}

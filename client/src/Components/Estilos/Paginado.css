@@ -1,9 +1,9 @@
 .paginado {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(12, 1fr);
     align-items: center;
-    width: 50%;
+    width: 60%;
     margin: 30px;
 }
 
@@ -12,7 +12,7 @@
     justify-content: center;
 }
 
-.number {
+.number-li {
     position: relative;
     cursor: pointer;
     list-style: none;
@@ -20,17 +20,25 @@
     font-size: 1.5rem;
 }
 
-.number:after {
+.number-li:hover {
+    color: #a0a0a0;
+}
+
+.number-li:after {
     content: "";
     position: absolute;
     background-color: rgb(185, 93, 31);
     height: 3px;
     width: 0;
     left: 0;
-    bottom: -2px;
+    bottom: 3px;
     transition: 0.3s;
 }
 
-.number:hover:after {
+.number-li:hover:after {
     width: 100%;
+}
+
+.current {
+    color: #a0a0a0;
 }
