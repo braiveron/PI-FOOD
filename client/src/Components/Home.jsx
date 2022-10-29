@@ -131,7 +131,7 @@ export default function Home() {
                   id={r.id}
                   title={r.title}
                   image={r.image}
-                  typeDiets={r.typeDiets}
+                  typeDiets={r.types ? r.types.map((t) => t.name) : r.typeDiets}
                   healthScore={r.healthScore}
                   key={r.id}
                 />

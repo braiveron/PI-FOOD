@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetails } from "../Actions";
+import { getDetails, clearDetails } from "../Actions";
 import "./Estilos/Details.css";
 import loader from "../Utilities/loader.gif";
 
@@ -11,13 +11,14 @@ export default function Details() {
   const recipeID = useParams();
   useEffect(() => {
     dispatch(getDetails(recipeID.id));
+    dispatch(clearDetails());
   }, [dispatch]);
   const myRecipe = useSelector((state) => state.details);
   return (
     <div>
       <nav className="nav-container">
         <Link className="button-create" to="/home">
-          <p className="button-create">VOLVER</p>
+          <p className="button-create">HOME</p>
         </Link>
         <p className="page-title">MIS RECETAS</p>
         <Link className="create-title" to="/recipes">

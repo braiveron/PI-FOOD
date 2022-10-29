@@ -6,9 +6,8 @@ const { Recipe, Type } = require("../../db");
 const getApiInfo = async () => {
   try {
     const apiUrl = await axios.get(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_API_KEY_2}&number=100&addRecipeInformation=true`
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=70f3734ffffc4d439ffe0e091cfc3d5b&number=100&addRecipeInformation=true`
     );
-    console.log(apiUrl.data.results);
     const apiInfo = await apiUrl.data.results.map((e) => {
       return {
         id: e.id,
@@ -23,8 +22,10 @@ const getApiInfo = async () => {
         }),
         summary: e.summary,
         analyzedInstructions: e.analyzedInstructions,
+        createdInDb: false,
       };
     });
+
     return apiInfo;
   } catch (error) {
     return "Hubo un error de conexion";

@@ -9,7 +9,7 @@ import {
   FILTER_SOCRE,
   ORDER_BY_NAME,
   GET_NAME_RECIPES,
-  POST_RECIPE,
+  CLEAR_DETAILS,
   GET_DETAILS,
 } from "./const";
 
@@ -30,10 +30,10 @@ export function getRecipes() {
 export function getTypes() {
   return async function (dispatch) {
     try {
-      let types = await axios.get(URL_TYPES);
+      let typeDiets = await axios.get(URL_TYPES);
       return dispatch({
         type: GET_TYPES,
-        payload: types.data,
+        payload: typeDiets.data,
       });
     } catch (error) {
       return error;
@@ -78,11 +78,11 @@ export function getNameRecipes(title) {
 }
 
 export function postRecipe(payload) {
+  console.log(payload);
   return async (dispatch) => {
     try {
       const response = await axios.post(URL_RECIPES, payload);
       return {
-        type: POST_RECIPE,
         response,
       };
     } catch (error) {
@@ -102,5 +102,11 @@ export function getDetails(id) {
     } catch (error) {
       return error;
     }
+  };
+}
+
+export function clearDetails() {
+  return {
+    type: CLEAR_DETAILS,
   };
 }

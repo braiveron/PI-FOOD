@@ -9,3 +9,5 @@ export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const GET_NAME_RECIPES = "GET_NAME_RECIPES";
 export const POST_RECIPE = "POST_RECIPE";
 export const GET_DETAILS = "GET_DETAILS";
+export const CLEAR_DETAILS = "CLEAR_DETAILS";
+export const MORE_THAN_50 = "MORE_THAN_50";

@@ -34,7 +34,7 @@ export default function RecipeCard({
       <div className="diets-card">
         {" "}
         TIPOS DE DIETA: <br />
-        <div className="diets">{typeDiets.join(", ")} </div>
+        <div className="diets">{typeDiets.join(", ")}</div>
       </div>
       <div className="health-card">NIVEL SALUDABLE:{" " + healthScore}</div>
     </div>

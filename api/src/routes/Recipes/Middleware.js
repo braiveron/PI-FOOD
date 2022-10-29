@@ -2,21 +2,25 @@ const { Recipe, Type } = require("../../db");
 const { getAllInfo } = require("./Functions");
 
 const getRecipe = async (req, res, next) => {
-  try {
-    const { name } = req.query;
-    const recipesTotal = await getAllInfo();
-    if (name) {
+  const { name } = req.query;
+  const recipesTotal = await getAllInfo();
+  if (name) {
+    try {
       let recipeTitle = await recipesTotal.filter((r) =>
         r.title.toLowerCase().includes(name.toLowerCase())
       );
       recipeTitle.length
         ? res.status(200).json(recipeTitle)
         : res.status(400).send("No existe una receta con ese nombre");
-    } else {
-      res.status(200).json(recipesTotal);
+    } catch (error) {
+      next(error);
     }
-  } catch (error) {
-    next(error);
+  } else {
+    try {
+      res.status(200).json(recipesTotal);
+    } catch (error) {
+      next(error);
+    }
   }
 };
 
@@ -36,26 +40,26 @@ const getByID = async (req, res, next) => {
 };
 
 const createRecipe = async (req, res, next) => {
+  const {
+    title,
+    summary,
+    healthScore,
+    analyzedInstructions,
+    image,
+    typeDiets,
+    createdInDb,
+  } = req.body;
+  console.log(typeof healthScore);
+  if (!title || !summary) {
+    return res
+      .status(404)
+      .json("Debes ingresar un NOMBRE y un RESUMEN para crear tu receta");
+  }
   try {
-    const {
-      title,
-      summary,
-      healtScore,
-      analyzedInstructions,
-      image,
-      typeDiets,
-      createdInDb,
-    } = req.body;
-
-    if (!title || !summary) {
-      return res
-        .status(404)
-        .json("Debes ingresar un NOMBRE y un RESUMEN para crear tu receta");
-    }
     const newRecipe = await Recipe.create({
       title,
       summary,
-      healtScore,
+      healthScore,
       analyzedInstructions,
       image,
       createdInDb,

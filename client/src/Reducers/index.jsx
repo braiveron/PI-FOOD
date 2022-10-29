@@ -7,6 +7,7 @@ import {
   GET_NAME_RECIPES,
   POST_RECIPE,
   GET_DETAILS,
+  CLEAR_DETAILS,
 } from "../Actions/const.jsx";
 
 const initialState = {
@@ -104,6 +105,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         details: action.payload,
+      };
+    case CLEAR_DETAILS:
+      return {
+        ...state,
+        details: [],
       };
     default:
       return state;

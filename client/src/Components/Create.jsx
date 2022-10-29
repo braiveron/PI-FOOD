@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { postRecipe, getTypes } from "../Actions";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 import "./Estilos/Create.css";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+
+function validate(input) {
+  let errors = {};
+  if (!input.title) {
+    errors.title = "Debes ingresar un titulo";
+  }
+  if (!input.summary) {
+    errors.summary = "Debes ingresar un resumen";
+  }
+  if (!input.healthScore || input.healthScore < 0 || input.healthScore > 100) {
+    errors.healthScore = "Debes ingresar un numero entre 0 y 100";
+  }
+  if (
+    !input.image &&
+    !input.image.includes("https://") &&
+    !input.image.includes("http://")
+  ) {
+    errors.image = "Debes ingresar una URL válida";
+  }
+  if (!input.typeDiets) {
+    errors.typeDiets = "Selecciona al menos un tipo de dieta";
+  }
+  return errors;
+}
 
 export default function RecipeCreate() {
   const dispatch = useDispatch();
@@ -20,31 +43,6 @@ export default function RecipeCreate() {
     image: "",
     typeDiets: [],
   });
-
-  function validate(input) {
-    let errors = {};
-    if (!input.title) {
-      errors.title = "Debes ingresar un titulo";
-    } else if (!input.summary) {
-      errors.summary = "Debes ingresar un resumen";
-    } else if (
-      !input.healthScore ||
-      input.healthScore < 0 ||
-      input.healthScore > 100 ||
-      typeof input.healthScore !== "number"
-    ) {
-      errors.healthScore = "Debes ingresar un numero entre 0 y 100";
-    } else if (
-      !input.image &&
-      !input.image.includes("https://") &&
-      !input.image.includes("http://")
-    ) {
-      errors.image = "Debes ingresar una URL válida";
-    } else if (!input.typeDiets) {
-      errors.typeDiets = "Selecciona al menos un tipo de dieta";
-    }
-    return errors;
-  }
 
   function handleChange(e) {
     setInput((input) => ({
@@ -84,11 +82,14 @@ export default function RecipeCreate() {
       e.preventDefault();
       return alert("Inserta una URL de imagen valida");
     }
+    e.preventDefault();
     dispatch(postRecipe(input));
     alert("Receta creada con exito!");
     setInput({
       title: "",
-      healthScore: 0,
+      summary: "",
+      healthScore: "",
+      analyzedInstructions: "",
       image: "",
       typeDiets: [],
     });
@@ -134,8 +135,8 @@ export default function RecipeCreate() {
           <label className="lbl-nombre">
             <span className="text-nomb">RESUMEN</span>{" "}
           </label>
-          {errors.summary && <p className="error">{errors.summary}</p>}
         </div>
+        {errors.summary && <p className="error">{errors.summary}</p>}
 
         <div className="form">
           <input
@@ -148,8 +149,8 @@ export default function RecipeCreate() {
           <label className="lbl-nombre">
             <span className="text-nomb">NIVEL SALUDABLE</span>{" "}
           </label>{" "}
-          {errors.healthScore && <p className="error">{errors.healthScore}</p>}
         </div>
+        {errors.healthScore && <p className="error">{errors.healthScore}</p>}
 
         <div className="form">
           <input
@@ -175,8 +176,8 @@ export default function RecipeCreate() {
           <label className="lbl-nombre">
             <span className="text-nomb">IMAGEN</span>{" "}
           </label>
-          {errors.image && <p className="error">{errors.image}</p>}
         </div>
+        {errors.image && <p className="error">{errors.image}</p>}
 
         <div className="form">
           <select className="diets-form" onChange={(e) => handleSelect(e)}>
@@ -189,9 +190,11 @@ export default function RecipeCreate() {
               );
             })}
           </select>
-
+        </div>
+        <div>
           {errors.typeDiets && <p className="error">{errors.typeDiets}</p>}
         </div>
+
         <div className="typesContainer">
           <ul className="list">
             <li>

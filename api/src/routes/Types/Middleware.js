@@ -6,7 +6,7 @@ const { Type } = require("../../db");
 const getDiets = async (req, res, next) => {
   try {
     const recipesApi = await axios.get(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_API_KEY_2}&addRecipeInformation=true&number=100`
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=70f3734ffffc4d439ffe0e091cfc3d5b&addRecipeInformation=true&number=100`
     );
 
     const types = await recipesApi.data.results.map((t) => t.diets);
