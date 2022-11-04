@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Estilos/Card.css";
-
 export default function RecipeCard({
   title,
   image,

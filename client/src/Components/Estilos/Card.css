@@ -13,6 +13,7 @@
     src: url('../../Utilities/slasherfilm.ttf');
 }
 
+
 .card {
     display: flex;
     flex-direction: column;

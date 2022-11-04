@@ -1,11 +1,13 @@
 import React from "react";
 import "./Estilos/Paginado.css";
+import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
 
 export default function Paginado({
   allRecipes,
   receipesPerPage,
   paginado,
   currentPage,
+  setCurrentPage,
 }) {
   const pageNumbers = [];
 
@@ -13,9 +15,20 @@ export default function Paginado({
     pageNumbers.push(i);
   }
 
+  const onPreviousPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
+  const onNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
   return (
     <nav className="paginado-container">
       <ul className="paginado">
+        <a className="number-arrow" onClick={onPreviousPage}>
+          <GrCaretPrevious />
+        </a>
         {pageNumbers?.map((n) => (
           <li className="number-li" key={n}>
             <a
@@ -26,6 +39,9 @@ export default function Paginado({
             </a>
           </li>
         ))}
+        <a className="number-arrow" onClick={onNextPage}>
+          <GrCaretNext />
+        </a>
       </ul>
     </nav>
   );

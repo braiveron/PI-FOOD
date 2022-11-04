@@ -108,6 +108,7 @@ html body {
 .filter-box:hover {
     color: #fff;
     background: none;
+    cursor: pointer;
 }
 
 .filter-box:hover option {

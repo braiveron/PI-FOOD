@@ -122,6 +122,7 @@ export default function Home() {
           allRecipes={allRecipes.length}
           paginado={paginado}
           currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
         />
         <div className="cards-container">
           {currentRecipes.length > 0 ? (
